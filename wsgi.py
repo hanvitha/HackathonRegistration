@@ -15,8 +15,8 @@ mysql = MySQL()
 app.config['MYSQL_USER'] = 'reg_user'
 app.config['MYSQL_PASSWORD'] = 'reg_user'
 app.config['MYSQL_DATABASE'] = 'reg_db'
-app.config['MYSQL_DATABASE_HOST'] = 'http://mysql-registration.apps.aahw6prep-7559.openshiftworkshop.com'
-app.config['MYSQL_DATABASE_PORT'] = 3306
+app.config['MYSQL_DATABASE_HOST'] = 'mysql.registration.svc'
+# app.config['MYSQL_DATABASE_PORT'] = 3306
 mysql.init_app(app)
 
 
