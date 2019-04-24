@@ -18,7 +18,7 @@ app.config['MYSQL_DATABASE_DB'] = 'reg_db'
 app.config['MYSQL_DATABASE_HOST'] = 'mysql.registration.svc'
 mysql.init_app(app)
 
-
+u = Util
 @app.route("/", methods=["GET", "POST"])
 def home():
     return render_template("home.html")
@@ -28,7 +28,8 @@ def save():
     try:
         conn = mysql.connect()
         cursor = mysql.get_db().cursor()
-        status = Util.saveUser(conn, cursor, request)
+        util = Util()
+        status = util.saveUser(conn, cursor, request)
         if(status == 200):
             return render_template("thankyou.html", fname=request.form['fname'])
         raise Exception("Unable to insert data!")
