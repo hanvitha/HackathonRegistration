@@ -19,7 +19,7 @@ class Utility:
             if(existingusers>0):
                 uid = uid+random.randint(10,210)
             print("Trying to insert! ")
-            cursor.execute("INSERT INTO users(uid,fname,lname, email,phone, team, redhatid, role)) VALUES(%s,%s,%s,%d,%s,%s,%s,%s)",(uid,fname,lname, email,phone, team, redhatid, role))
+            cursor.execute("INSERT INTO users(uid,fname,lname, email,phone, team, redhatid, role)) VALUES(%s,%s,%s,%s,%d,%s,%s,%s)",(uid,fname,lname, email,phone, team, redhatid, role))
             conn.commit()
             print("yay!")
             return 200
