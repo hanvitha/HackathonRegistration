@@ -13,7 +13,7 @@ class Utility:
             team = request.form['team']
             role = request.form['role']
             redhatid = request.form['redhatid']
-
+            print(fname)
             uid = fname[:1]+lname
             existingusers = cursor.execute("select *from users where uid=%s",[uid])
             if(existingusers>0):

@@ -29,6 +29,7 @@ def save():
         conn = mysql.connect()
         cursor = mysql.get_db().cursor()
         util = Util()
+        print("************************************************\n "+request.form['fname'])
         status = util.saveUser(conn, cursor, request)
         if(status == 200):
             return render_template("thankyou.html", fname=request.form['fname'])
