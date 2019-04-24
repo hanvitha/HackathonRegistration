@@ -3,10 +3,9 @@ from flask import json
 import random
 
 class Utility:
-    def saveUser(self, conn, request):
+    def saveUser(self, conn, cursor, request):
         try:
             print("Not yet!")
-            cursor = conn.cursor()
             fname = request.form['fname']
             lname = request.form['lname']
             email = request.form['email']

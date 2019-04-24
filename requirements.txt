@@ -1,4 +1,4 @@
 flask
 gunicorn
 flask_restful
-Flask-MySQL
+flask-mysql

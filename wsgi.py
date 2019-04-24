@@ -12,11 +12,10 @@ APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 mysql = MySQL()
 # MySQL configurations
-app.config['MYSQL_USER'] = 'reg_user'
-app.config['MYSQL_PASSWORD'] = 'reg_user'
-app.config['MYSQL_DATABASE'] = 'reg_db'
+app.config['MYSQL_DATABASE_USER'] = 'reg_user'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'reg_user'
+app.config['MYSQL_DATABASE_DB'] = 'reg_db'
 app.config['MYSQL_DATABASE_HOST'] = 'mysql.registration.svc'
-# app.config['MYSQL_DATABASE_PORT'] = 3306
 mysql.init_app(app)
 
 
@@ -28,7 +27,8 @@ def home():
 def save():
     try:
         conn = mysql.connect()
-        status = Util.saveUser(conn, request)
+        cursor = mysql.get_db().cursor()
+        status = Util.saveUser(conn, cursor, request)
         if(status == 200):
             return render_template("thankyou.html", fname=request.form['fname'])
         raise Exception("Unable to insert data!")
