@@ -1,4 +1,4 @@
-import os, pandas
+import os
 from flask import Flask, render_template, json, request
 from flaskext.mysql import MySQL
 from utils import Utility as Util
