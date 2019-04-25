@@ -69,7 +69,7 @@ def usersall(status=None):
 def updatestatus():
     uid = request.args.get('id')
     status = request.args.get('status')
-    # cursor.execute('''update users set status=%s where uid=%s''', (status,uid))
+    cursor.execute('''update users set status=%s where uid=%s''', (status,uid))
     return "done"
 
 if __name__ == '__main__':
