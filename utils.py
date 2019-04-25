@@ -15,8 +15,8 @@ class Utility:
             redhatid = request.form['redhatid']
             print(fname)
             uid = fname[:1]+lname
-            existingusers = cursor.execute('''select *from users where uid = %s''', (uid,))
-            if(existingusers>0):
+            cursor.execute('''select *from users where uid = %s''', (uid,))
+            if next(cursor, None) is None:
                 uid = uid+random.randint(10,210)
 
             sql_insert_query ='''INSERT INTO users(uid,fname,lname, email,phone, team, redhatid, role) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)'''
@@ -27,7 +27,7 @@ class Utility:
             conn.commit()
             print(cursor.rowcount, " record inserted.")
             print("saved %s,%s,%s,%s,%s,%s,%s,%s"%(uid,fname,lname, email, phone, team, redhatid, role))
-            return 200
+            return 200, uid
         except Exception as e:
             print (json.dumps({'error':str(e)}))
             return 400

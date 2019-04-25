@@ -35,9 +35,9 @@ def save():
     try:
         util = Util()
         print("User %s logged in!"%request.form['fname'])
-        status = util.saveUser(db, cursor, request)
-        if(status == 200):
-            return render_template("thankyou.html", fname=request.form['fname'])
+        status, uid = util.saveUser(db, cursor, request)
+        if status and status == 200:
+            return render_template("thankyou.html", fname=request.form['fname'], uid=uid)
         raise Exception("Unable to insert data!")
     except Exception as e:
         print( "<h1>Oops! Something went wrong.. Could you try after sometime or reach out to the host!</h1>")
