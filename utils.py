@@ -19,9 +19,9 @@ class Utility:
             if(existingusers>0):
                 uid = uid+random.randint(10,210)
             print("Trying to insert! ")
-            cursor.execute("INSERT INTO users(uid,fname,lname, email,phone, team, redhatid, role) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)",(uid,fname,lname, email,int(phone), team, redhatid, role))
+            cursor.execute('''INSERT INTO users(uid,fname,lname, email,phone, team, redhatid, role) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)''',(uid,fname,lname, email,phone, team, redhatid, role))
             conn.commit()
-            print("yay!")
+            print("saved %s,%s,%s,%s,%s,%s,%s,%s"%(uid,fname,lname, email, phone, team, redhatid, role))
             return 200
         except Exception as e:
             print (json.dumps({'error':str(e)}))
