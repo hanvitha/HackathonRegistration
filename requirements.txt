@@ -1,4 +1,4 @@
 flask
+mysql-connector
 gunicorn
 flask_restful
-flask-mysql

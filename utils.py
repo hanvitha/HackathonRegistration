@@ -23,8 +23,9 @@ class Utility:
             insert_tuple = (uid,fname,lname, email,phone, team, redhatid, role)
             print("Trying to insert! ", sql_insert_query)
             print("Connection ",conn)
-            result = cursor.execute(sql_insert_query, insert_tuple)
+            cursor.execute(sql_insert_query, insert_tuple)
             conn.commit()
+            print(cursor.rowcount, " record inserted.")
             print("saved %s,%s,%s,%s,%s,%s,%s,%s"%(uid,fname,lname, email, phone, team, redhatid, role))
             return 200
         except Exception as e:
