@@ -10,12 +10,16 @@ __author__ = 'hanvitha'
 app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 * 1024
 # APP_ROOT = "/opt/app-root/src/aahack"
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
-db = mysql.connector.connect(host="mysql.registration.svc",
-                             user="root",
-                             password="reg_user",
-                             database="reg_db"
-                             )
-cursor = db.cursor()
+host="mysql.registration.svc"
+user="root"
+password="reg_user"
+database="reg_db"
+# db = mysql.connector.connect(host=host,
+#                              user=user,
+#                              password=password,
+#                              database=database
+#                             )
+# cursor = db.cursor()
 # mysql = MySQL()
 # MySQL configurations
 # app.config['MYSQL_DATABASE_USER'] = 'root'
@@ -30,28 +34,43 @@ u = Util
 def home():
     return render_template("home.html")
 
-@app.route("/save", methods=["GET", "POST"])
-def save():
-    try:
-        util = Util()
-        print("User %s logged in!"%request.form['fname'])
-        status, uid = util.saveUser(db, cursor, request)
-        if status and status == 200:
-            return render_template("thankyou.html", fname=request.form['fname'], uid=uid)
-        raise Exception("Unable to insert data!")
-    except Exception as e:
-        print( "<h1>Oops! Something went wrong.. Could you try after sometime or reach out to the host!</h1>")
-        return json.dumps({'error': str(e)})
+# @app.route("/save", methods=["GET", "POST"])
+# def save():
+#     try:
+#         util = Util()
+#         print("User %s logged in!"%request.form['fname'])
+#         status, uid = util.saveUser(db, cursor, request)
+#         if status and status == 200:
+#             return render_template("thankyou.html", fname=request.form['fname'], uid=uid)
+#         raise Exception("Unable to insert data!")
+#     except Exception as e:
+#         print(json.dumps({"error": str(e)}))
+#         return "<h1>Oops! Something went wrong.. Could you try after sometime or reach out to the host!</h1>"
 
-@app.route("/usersRegistered", methods=["GET", "POST"])
+@app.route("/users", strict_slashes=False)
 def users():
-    # get all details from form
-    formelements = request
-    # create oc login
-    # send email to their email address!
+    return render_template("users.html")
 
-    return "something!"
 
+@app.route("/users/<status>", strict_slashes=False)
+def usersall(status=None):
+    # if status == 'all':
+    #     cursor.execute('''select * from users''')
+    # elif status == 'done':
+    #     cursor.execute('''select * from users where status=1''')
+    # else:
+    #     cursor.execute('''select * from users where status=0''')
+    #
+    # allusers = cursor.fetchall()
+    allusers =None
+    return render_template("usersRegistered.html", users=allusers, host=host,user=user, password=password, database=database)
+
+@app.route("/updatestatus", methods=["POST"])
+def updatestatus():
+    uid = request.args.get('id')
+    status = request.args.get('status')
+    # cursor.execute('''update users set status=%s where uid=%s''', (status,uid))
+    return "done"
 
 if __name__ == '__main__':
     app.run()

@@ -1,16 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Thanks for Signing up!</title>
-</head>
-<!DOCTYPE html>
 <html>
-<title>Red Hat - We make open source technologies for the enterprise</title>
+<title>Users Registered</title>
 
 <link rel="shortcut icon" href="https://www.redhat.com/profiles/rh/themes/redhatdotcom/favicon.ico"
       type="image/x-icon"/>
-<body>
 <head>
     <title>Contents</title>
     <link rel="shortcut icon" type="image/png"
@@ -21,22 +14,79 @@
             font-family: Arial, Helvetica, sans-serif;
 
         }
-        a{
-            color:black;
+
+        a {
+            color: black;
         }
+
         * {
             box-sizing: border-box;
         }
 
-
-        .h {
-            padding: 20px;
+        /* Full-width input fields */
+        input {
+            font-size: small;
             width: 100%;
-            font-size: 1.4em;
-            background-color: black;
-            color: #f3f3f3;
-            padding-left: 30px;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            display: inline-block;
+            border: none;
+            background: #f1f1f1;
         }
+
+        /* Add a background color when the inputs get focus */
+        input:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+
+        /* Set a style for all buttons */
+        button {
+            background-color: black;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            opacity: 0.9;
+        }
+
+        button:hover {
+            opacity: 1;
+        }
+
+        /* Extra styles for the cancel button */
+        .statusbtn {
+            color: #000;
+            background-color: lawngreen;
+        }
+
+        /* Float cancel and signup buttons and add an equal width */
+        .cancelbtn, .signupbtn {
+            float: left;
+            width: 50%;
+        }
+
+        /* Add padding to container elements */
+        .container {
+            padding: 16px;
+        }
+
+        /* The Modal (background) */
+        .modal {
+            z-index: 1; /* Sit on top */
+            align-content: center;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+        }
+        /* Style the horizontal ruler */
+        hr {
+            border: 1px solid #f1f1f1;
+            margin-bottom: 25px;
+        }
+
         /* Change styles for cancel button and signup button on extra small screens */
         @media screen and (max-width: 300px) {
             .cancelbtn, .signupbtn {
@@ -54,6 +104,16 @@
             margin: 0px;
             background-image: url({{ url_for ('static', filename = 'bgd.jpg') }});
         }
+
+        .h {
+            padding: 20px;
+            width: 100%;
+            font-size: 1.4em;
+            background-color: black;
+            color: #f3f3f3;
+            padding-left: 30px;
+        }
+
         table {
             border-collapse: collapse;
             width: 100%;
@@ -88,12 +148,16 @@
         }
     </style>
 </head>
+
 <body>
     <header class="h" style="background: #c00;padding: 1.5px;margin: 0px"></header>
     <header class="h">RED HAT - AA Hack War 6</header>
     <div style="background: white" id="id01" class="modal">
-       <section><h3>Thanks for Signing up {{ fname }}!<br><br>Your username is {{ uid }}.</h3>Please save it for your reference</section>
+      <h2>
+        <div><a href="/users/all" >All users</a></div>
+        <div><a href="/users/done" >Users registered</a></div>
+        <div><a href="/users/notdone" >Users registered</a></div>
+      </h2>
     </div>
 </body>
-
 </html>

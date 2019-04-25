@@ -15,8 +15,9 @@ class Utility:
             redhatid = request.form['redhatid']
             print(fname)
             uid = ""+fname[:1]+lname
-            cursor.execute('''select *from users where uid = %s''', (uid,))
-            if next(cursor, None) is None:
+            uid = uid.lower()
+            cursor.execute('''select count(*) from users where uid = %s''', (uid,))
+            if cursor and cursor.rowcount>0:
                 uid = uid+str(random.randint(10,210))
 
             sql_insert_query ='''INSERT INTO users(uid,fname,lname, email,phone, team, redhatid, role) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)'''
