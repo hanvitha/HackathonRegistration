@@ -15,7 +15,7 @@ class Utility:
             redhatid = request.form['redhatid']
             print(fname)
             uid = fname[:1]+lname
-            existingusers = cursor.execute("select *from users where uid=%s"%uid)
+            existingusers = cursor.execute('''select *from users where uid = %s''', (uid,))
             if(existingusers>0):
                 uid = uid+random.randint(10,210)
 
