@@ -15,11 +15,15 @@ class Utility:
             redhatid = request.form['redhatid']
             print(fname)
             uid = fname[:1]+lname
-            existingusers = cursor.execute("select *from users where uid=%s",[uid])
+            existingusers = cursor.execute("select *from users where uid=%s"%uid)
             if(existingusers>0):
                 uid = uid+random.randint(10,210)
-            print("Trying to insert! ")
-            cursor.execute('''INSERT INTO users(uid,fname,lname, email,phone, team, redhatid, role) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)''',(uid,fname,lname, email,phone, team, redhatid, role))
+
+            sql_insert_query ='''INSERT INTO users(uid,fname,lname, email,phone, team, redhatid, role) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)'''
+            insert_tuple = (uid,fname,lname, email,phone, team, redhatid, role)
+            print("Trying to insert! ", sql_insert_query)
+            print("Connection ",conn)
+            result = cursor.execute(sql_insert_query, insert_tuple)
             conn.commit()
             print("saved %s,%s,%s,%s,%s,%s,%s,%s"%(uid,fname,lname, email, phone, team, redhatid, role))
             return 200
