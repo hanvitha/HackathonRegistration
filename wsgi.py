@@ -10,7 +10,11 @@ __author__ = 'hanvitha'
 app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 * 1024
 # APP_ROOT = "/opt/app-root/src/aahack"
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
-db = mysql.connector.connect(host="http://mysql-registration.apps.aahw6prep-7559.openshiftworkshop.com",user="reg_user", password="reg_user",database="reg_db", port=3306)
+db = mysql.connector.connect(host="mysql.registration.svc",
+                             user="root",
+                             password="reg_user",
+                             database="reg_db"
+                             )
 cursor = db.cursor()
 # mysql = MySQL()
 # MySQL configurations
