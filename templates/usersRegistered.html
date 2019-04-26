@@ -202,7 +202,7 @@
             <td>{{ user[5] }}</td>
             <td>{{ user[6] }}</td>
             <td>{{ user[7] }}</td>
-            <td><button class="{% user[8] ?  'statusBtnSet' : 'statusBtnUnSet' %}" id="statusbtn" value="{{ str(user[8]+"__"+user[0]) }}">{% user[8] ?  'Sent' : 'Not Sent' %}</button></td>
+            <td>{{ user[8] }}</td>
         </tr>
     {% endfor %}
 </table>
