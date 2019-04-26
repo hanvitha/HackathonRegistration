@@ -41,7 +41,7 @@ def save():
     finally:
         db.close()
         cursor.close()
-        
+
 @app.route("/users", strict_slashes=False)
 def users():
     return render_template("users.html")
