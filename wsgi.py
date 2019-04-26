@@ -41,6 +41,7 @@ def save():
     finally:
         db.close()
         cursor.close()
+        
 @app.route("/users", strict_slashes=False)
 def users():
     return render_template("users.html")
@@ -48,18 +49,30 @@ def users():
 
 @app.route("/users/<status>", strict_slashes=False)
 def usersall(status=None):
-    if status == 'all':
-        cursor.execute('''select * from users''')
-    elif status == 'done':
-        cursor.execute('''select * from users where status=1''')
-    else:
-        cursor.execute('''select * from users where status=0''')
+    try:
+        db = mysql.connector.connect(host=host,
+                                     user=user,
+                                     password=password,
+                                     database=database
+                                     )
+        cursor = db.cursor(buffered=True)
+        if status == 'all':
+            cursor.execute('''select * from users''')
+        elif status == 'done':
+            cursor.execute('''select * from users where status=1''')
+        else:
+            cursor.execute('''select * from users where status=0''')
 
-    allusers = cursor.fetchall()
-    print(allusers)
-    return render_template("usersRegistered.html", users=allusers, host=host,user=user, password=password, database=database)
+        allusers = cursor.fetchall()
+        print(allusers)
+        return render_template("usersRegistered.html", users=allusers, host=host,user=user, password=password, database=database)
+    except Exception as e:
+        print(json.dumps({"error": str(e)}))
+        return "<h1>Oops! Something went wrong.. Could you try after sometime or reach out to the host!</h1>"
+    finally:
+        db.close()
+        cursor.close()
 
-#
 # @app.route("/updatestatus", methods=["POST"])
 # def updatestatus():
 #     uid = request.args.get('id')
