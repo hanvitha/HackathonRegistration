@@ -1,6 +1,7 @@
 
 from flask import json
 import random
+import logging
 
 class Utility:
     def saveUser(self, conn, cursor, request):
@@ -16,9 +17,9 @@ class Utility:
             print(fname)
             uid = ""+fname[:1]+lname
             uid = uid.lower()
-            cursor.execute('''select count(*) from users where uid = %s''', (uid,))
-            if cursor and cursor.rowcount>0:
-                uid = uid+str(random.randint(10,210))
+            cursor.execute('''select * from users where uid = %s''', (uid,))
+            if cursor and cursor.rowcount >= 1:
+                uid = uid+str(random.randint(10, 210))
 
             sql_insert_query ='''INSERT INTO users(uid,fname,lname, email,phone, team, redhatid, role) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)'''
             insert_tuple = (uid,fname,lname, email,phone, team, redhatid, role)
@@ -30,11 +31,9 @@ class Utility:
             print("saved %s,%s,%s,%s,%s,%s,%s,%s"%(uid,fname,lname, email, phone, team, redhatid, role))
             return 200, uid
         except Exception as e:
-            print (json.dumps({'error':str(e)}))
+            print(json.dumps({'error':str(e)}))
+            logging.exception("Something awful happened!")
             return 400
         finally:
             cursor.close()
             conn.close()
-
-    def fetchUserDetails(self, conn):
-        return "Wow!"

@@ -15,14 +15,7 @@ host="mysql.registration.svc"
 user="root"
 password="reg_user"
 database="reg_db"
-db = mysql.connector.connect(host=host,
-                             user=user,
-                             password=password,
-                             database=database
-                            )
-cursor = db.cursor(buffered=True)
 
-u = Util
 @app.route("/", methods=["GET", "POST"])
 def home():
     return render_template("home.html")
@@ -30,6 +23,12 @@ def home():
 @app.route("/save", methods=["GET", "POST"])
 def save():
     try:
+        db = mysql.connector.connect(host=host,
+                                     user=user,
+                                     password=password,
+                                     database=database
+                                     )
+        cursor = db.cursor(buffered=True)
         util = Util()
         print("User %s logged in!"%request.form['fname'])
         status, uid = util.saveUser(db, cursor, request)
@@ -39,7 +38,9 @@ def save():
     except Exception as e:
         print(json.dumps({"error": str(e)}))
         return "<h1>Oops! Something went wrong.. Could you try after sometime or reach out to the host!</h1>"
-#
+    finally:
+        db.close()
+        cursor.close()
 @app.route("/users", strict_slashes=False)
 def users():
     return render_template("users.html")

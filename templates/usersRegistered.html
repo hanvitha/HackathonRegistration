@@ -118,7 +118,6 @@
 
         body {
             margin: 0px;
-            background-image: url({{ url_for ('static', filename = 'bgd.jpg') }});
         }
 
         .h {
@@ -169,13 +168,15 @@
 
 <header class="h" style="background: #c00;padding: 1.5px;margin: 0px"></header>
 <header class="h">RED HAT - AA Hack War 6</header>
-<section>
-    <div>
-        <a href="/users/all" >All users</a>
-        <a href="/users/done" >Users registered</a>
-        <a href="/users/notdone" >Users registered</a>
-    </div>
-</section>
+<div style="background: white" id="id01" class="modal">
+      <section>
+        <div><a href="/users/all" >All users</a></div>
+        <div><a href="/users/done" >Users registered</a></div>
+        <div><a href="/users/notdone" >Users not registered</a></div>
+      </section>
+</div>
+<br>
+<br>
 <section>
 {% if users %}
 <table>
