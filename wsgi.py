@@ -20,7 +20,7 @@ db = mysql.connector.connect(host=host,
                              password=password,
                              database=database
                             )
-cursor = db.cursor()
+cursor = db.cursor(buffered=True)
 
 u = Util
 @app.route("/", methods=["GET", "POST"])
