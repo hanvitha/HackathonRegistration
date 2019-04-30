@@ -1,6 +1,7 @@
 import os
 from flask import Flask, render_template, json, request
 # from flaskext.mysql import MySQL
+import traceback
 import mysql.connector
 from utils import Utility as Util
 app = Flask(__name__)
@@ -67,7 +68,7 @@ def usersall(status=None):
         # print(allusers)
         return render_template("usersRegistered.html", users=allusers, host=host,user=user, password=password, database=database)
     except Exception as e:
-        print(json.dumps({"error": str(e)}))
+        print(traceback.print_exc())
         return "<h1>Oops! Something went wrong.. Could you try after sometime or reach out to the host!</h1>"
     finally:
         db.close()

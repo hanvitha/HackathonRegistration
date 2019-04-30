@@ -201,9 +201,9 @@
             <td>{{ user[6] }}</td>
             <td>{{ user[7] }}</td>
             {% if user[8] == 1 %}
-                <td><button class='statusbtn' style="background:limegreen" value="{{ user[0]+"__"+user[8] }}">Complete</button></td>
+                <td><button class='statusbtn' style="background:limegreen" value="{{ "%s__%s"%(user[0],user[8]) }}">Complete</button></td>
             {% else %}
-                <td><button class='statusbtn' style="background:orangered" value="{{ user[0]+"__"+user[8] }}">Not Done</button></td>
+                <td><button class='statusbtn' style="background:orangered" value="{{ "%s__%s"%(user[0],user[8]) }}">Not Done</button></td>
             {% endif %}
         </tr>
     {% endfor %}
