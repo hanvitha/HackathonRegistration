@@ -216,10 +216,12 @@
   $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
   $(function() {
       $('.statubtn').bind('click', function() {
+          console.log("Entered");
           $.getJSON($SCRIPT_ROOT + '/updatestatus', {
               uid : $('.statubtn').val().split("__")[0],
               status : $('.statubtn').val().split("__")[1],
           }, function(data) {
+              console.log("Reloding");
               location.reload(true);
           });
           return false;

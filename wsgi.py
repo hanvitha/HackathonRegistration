@@ -83,12 +83,14 @@ def updatestatus():
     cursor = db.cursor(buffered=True)
     uid = request.args.get('uid')
     status = request.args.get('status')
+    print("checking on status")
     if(status=="0"):
         status="1"
     else:
         status="0"
     cursor.execute('''update users set status=%s where uid=%s''', (status,uid))
-    return "done"
+    print("Done updating status")
+    return "success"
 
 if __name__ == '__main__':
     app.run()
