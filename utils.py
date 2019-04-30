@@ -19,7 +19,7 @@ class Utility:
             uid = uid.lower()
             cursor.execute('''select * from users where uid = %s''', (uid,))
             if cursor and cursor.rowcount >= 1:
-                uid = uid+str(random.randint(10, 210))
+                uid = uid+str(cursor.rowcount + 1)
 
             sql_insert_query ='''INSERT INTO users(uid,fname,lname, email,phone, team, redhatid, role) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)'''
             insert_tuple = (uid,fname,lname, email,phone, team, redhatid, role)
