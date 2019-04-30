@@ -200,7 +200,7 @@
             <td>{{ user[5] }}</td>
             <td>{{ user[6] }}</td>
             <td>{{ user[7] }}</td>
-            {% if str(user[8]) == "1" %}
+            {% if user[8] == 1 %}
                 <td><button class='statusbtn' style="background:limegreen" value={{ user[0]+str(user[8]) }}>Complete</button></td>
             {% else %}
                 <td><button class='statusbtn' style="background:orangered" value={{ user[0]+str(user[8]) }}>Not Done</button></td>
