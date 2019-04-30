@@ -1,30 +1,11 @@
 <!DOCTYPE html>
 <html>
 <title>Users Registered</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-<script type=text/javascript>
-  var updateStatus;
-  function updateStatus(val)
-      {
-          $.ajax({
-              type: 'GET',
-              url: {{ url_for('updatestatus') }},
-              uid: val.split("__")[0],
-              status: val.split("__")[1],
-              success: function (data) {
-                  console.log('success', data);
-                  window.location.reload();
-              },
-              error: function (exception) {
-                  alert('Exception:' + exception);
-              }
-          });
-      };
-</script>
 
 <link rel="shortcut icon" href="https://www.redhat.com/profiles/rh/themes/redhatdotcom/favicon.ico"
       type="image/x-icon"/>
 <head>
+
     <title>Contents</title>
     <link rel="shortcut icon" type="image/png"
           href="data:image/png;base64,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"/>
@@ -183,6 +164,7 @@
 
 <body>
 
+
 <header class="h" style="background: #c00;padding: 1.5px;margin: 0px"></header>
 <header class="h">RED HAT - AA Hack War 6</header>
 <div style="background: white" id="id01" class="modal">
@@ -221,15 +203,36 @@
             <td>{{ user[6] }}</td>
             <td>{{ user[7] }}</td>
             {% if user[8] == 1 %}
-                <td><button class='statusbtn' style="background:limegreen" onclick="updateStatus(this.value)" value="{{ "%s__%s"%(user[0],user[8]) }}">Complete</button></td>
+                <td><button class='statusbtn' style="background:limegreen"  value={{ "%s__%s"%(user[0],user[8]) }}>Complete</button></td>
             {% else %}
-                <td><button class='statusbtn' style="background:orangered" onclick="updateStatus(this.value)" value="{{ "%s__%s"%(user[0],user[8]) }}">NotDone</button></td>
+                <td><button class='statusbtn' style="background:orangered"  value={{ "%s__%s"%(user[0],user[8]) }}>NotDone</button></td>
             {% endif %}
         </tr>
     {% endfor %}
 </table>
 {% endif %}
 </section>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script type=text/javascript>
+    $(document).on('click', '.statusbtn', function() {
+        $val = $(this).val();
+        alert($val);
+          $.ajax({
+              type: 'GET',
+              url: '{{ url_for('/updatestatus') }}',
+              uid: $val.split("__")[0],
+              status: $val.split("__")[1],
+              success: function (data) {
+                  console.log('success', data);
+                  window.location.reload();
+              },
+              error: function (exception) {
+                  alert('Exception:' + exception);
+              },
+          });
+    });
+</script>
 </body>
 
 </html>
