@@ -1,6 +1,26 @@
 <!DOCTYPE html>
 <html>
 <title>Users Registered</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script type=text/javascript>
+  var updateStatus;
+  function updateStatus(val)
+      {
+          $.ajax({
+              type: 'GET',
+              url: {{ url_for('updatestatus') }},
+              uid: val.split("__")[0],
+              status: val.split("__")[1],
+              success: function (data) {
+                  console.log('success', data);
+                  window.location.reload();
+              },
+              error: function (exception) {
+                  alert('Exception:' + exception);
+              }
+          });
+      };
+</script>
 
 <link rel="shortcut icon" href="https://www.redhat.com/profiles/rh/themes/redhatdotcom/favicon.ico"
       type="image/x-icon"/>
@@ -162,26 +182,6 @@
 </head>
 
 <body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-<script type=text/javascript>
-  function updateStatus()
-      {
-          alert("hello!!");
-          $.ajax({
-              type: 'GET',
-              url: {{ url_for('updatestatus') }},
-              uid: $(this).val().split("__")[0],
-              status: $(this).val().split("__")[1],
-              success: function (data) {
-                  console.log('success', data);
-                  window.location.reload();
-              },
-              error: function (exception) {
-                  alert('Exception:' + exception);
-              }
-          });
-      };
-</script>
 
 <header class="h" style="background: #c00;padding: 1.5px;margin: 0px"></header>
 <header class="h">RED HAT - AA Hack War 6</header>
@@ -221,9 +221,9 @@
             <td>{{ user[6] }}</td>
             <td>{{ user[7] }}</td>
             {% if user[8] == 1 %}
-                <td><button class='statusbtn' style="background:limegreen" onclick="updateStatus()" value="{{ "%s__%s"%(user[0],user[8]) }}">Complete</button></td>
+                <td><button class='statusbtn' style="background:limegreen" onclick="updateStatus(this.value)" value="{{ "%s__%s"%(user[0],user[8]) }}">Complete</button></td>
             {% else %}
-                <td><button class='statusbtn' style="background:orangered" onclick="updateStatus()" value="{{ "%s__%s"%(user[0],user[8]) }}">Not Done</button></td>
+                <td><button class='statusbtn' style="background:orangered" onclick="updateStatus(this.value)" value="{{ "%s__%s"%(user[0],user[8]) }}">NotDone</button></td>
             {% endif %}
         </tr>
     {% endfor %}
