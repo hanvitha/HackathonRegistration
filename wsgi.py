@@ -64,7 +64,7 @@ def usersall(status=None):
             cursor.execute('''select * from users where status=0''')
 
         allusers = cursor.fetchall()
-        print(allusers)
+        # print(allusers)
         return render_template("usersRegistered.html", users=allusers, host=host,user=user, password=password, database=database)
     except Exception as e:
         print(json.dumps({"error": str(e)}))
