@@ -164,20 +164,23 @@
 <body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script type=text/javascript>
-  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-  $(function() {
-      $('.statubtn').click(function() {
-          alert(""+$SCRIPT_ROOT);
-          $.getJSON($SCRIPT_ROOT + '/updatestatus', {
-              uid : this.val().split("__")[0],
-              status : this.val().split("__")[1],
-          }, function(data) {
-              console.log("Reloading");
-              location.reload(true);
+  function updateStatus()
+      {
+          alert("hello!!");
+          $.ajax({
+              type: 'GET',
+              url: {{ url_for('updatestatus') }},
+              uid: $(this).val().split("__")[0],
+              status: $(this).val().split("__")[1],
+              success: function (data) {
+                  console.log('success', data);
+                  window.location.reload();
+              },
+              error: function (exception) {
+                  alert('Exception:' + exception);
+              }
           });
-          return false;
-      });
-  });
+      };
 </script>
 
 <header class="h" style="background: #c00;padding: 1.5px;margin: 0px"></header>
@@ -218,9 +221,9 @@
             <td>{{ user[6] }}</td>
             <td>{{ user[7] }}</td>
             {% if user[8] == 1 %}
-                <td><button class='statusbtn' style="background:limegreen" value="{{ "%s__%s"%(user[0],user[8]) }}">Complete</button></td>
+                <td><button class='statusbtn' style="background:limegreen" onclick="updateStatus()" value="{{ "%s__%s"%(user[0],user[8]) }}">Complete</button></td>
             {% else %}
-                <td><button class='statusbtn' style="background:orangered" value="{{ "%s__%s"%(user[0],user[8]) }}">Not Done</button></td>
+                <td><button class='statusbtn' style="background:orangered" onclick="updateStatus()" value="{{ "%s__%s"%(user[0],user[8]) }}">Not Done</button></td>
             {% endif %}
         </tr>
     {% endfor %}
