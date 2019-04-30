@@ -10,8 +10,8 @@ __author__ = 'hanvitha'
 app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 * 1024
 # APP_ROOT = "/opt/app-root/src/aahack"
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
-# host="mysql.registration.svc"
-host="mysql.registration.svc.cluster.local"
+# host="mysql.registration.svc.cluster.local"
+host="mysql.registration.svc"
 user="root"
 password="reg_user"
 database="reg_db"
@@ -47,7 +47,7 @@ def users():
     return render_template("users.html")
 
 
-@app.route("/users/<status>", strict_slashes=False)
+@app.route("/users/<status>", strict_slashes=False, methods=["GET", "POST"])
 def usersall(status=None):
     try:
         db = mysql.connector.connect(host=host,
@@ -73,12 +73,22 @@ def usersall(status=None):
         db.close()
         cursor.close()
 
-# @app.route("/updatestatus", methods=["POST"])
-# def updatestatus():
-#     uid = request.args.get('id')
-#     status = request.args.get('status')
-#     cursor.execute('''update users set status=%s where uid=%s''', (status,uid))
-#     return "done"
+@app.route("/updatestatus", methods=["POST"])
+def updatestatus():
+    db = mysql.connector.connect(host=host,
+                                 user=user,
+                                 password=password,
+                                 database=database
+                                 )
+    cursor = db.cursor(buffered=True)
+    uid = request.args.get('uid')
+    status = request.args.get('status')
+    if(status=="0"):
+        status="1"
+    else:
+        status="0"
+    cursor.execute('''update users set status=%s where uid=%s''', (status,uid))
+    return "done"
 
 if __name__ == '__main__':
     app.run()

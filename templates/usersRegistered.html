@@ -57,10 +57,7 @@
         }
 
         /* Extra styles for the cancel button */
-        .statusbtn {
-            color: #000;
-            background-color: lawngreen;
-        }
+
 
         /* Float cancel and signup buttons and add an equal width */
         .cancelbtn, .signupbtn {
@@ -203,50 +200,32 @@
             <td>{{ user[5] }}</td>
             <td>{{ user[6] }}</td>
             <td>{{ user[7] }}</td>
-            <td>{{ user[8] }}</td>
+            {% if str(user[8]) == "1" %}
+                <td><button class='statusbtn' style="background:limegreen" value={{ user[0]+str(user[8]) }}>Complete</button></td>
+            {% else %}
+                <td><button class='statusbtn' style="background:orangered" value={{ user[0]+str(user[8]) }}>Not Done</button></td>
+            {% endif %}
         </tr>
     {% endfor %}
 </table>
 {% endif %}
 </section>
 </body>
-<script>
-    $(function() {
-      $('#statusbtn').click(function(){
-          var val = $(this).val();
-          var status;
-          if(val.split("__")[0]=="0") {
-              status = 1;
-          }else{
-              status = 0;
-          }
-          var uid = val.split("__")[1];
-
-        $.ajax({
-          url: '/updatestatus',
-          type: 'post',
-          data: {
-            id : uid,
-            status: status
-          },
-          dataType: 'json',
-          success: function(response){
-            if(response.success){
-              if(status){
-                  $(this).className="statusBtnSet"
-              }else{
-                  $(this).className="statusBtnUnSet"
-              }
-              console.log(response.message);
-            } else {
-              console.log(response.message);
-            }
-          },
-          error: function(xhr, textStatus, errorThrown) {
-            console.log(textStatus, errorThrown);
-          }
-        });
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script type=text/javascript>
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+  $(function() {
+      $('.statubtn').bind('click', function() {
+          $.getJSON($SCRIPT_ROOT + '/updatestatus', {
+              uid : $('.statubtn').val().split("__")[0],
+              status : $('.statubtn').val().split("__")[1],
+          }, function(data) {
+              location.reload(true);
+          });
+          return false;
       });
-    });
+  });
 </script>
+
+
 </html>
