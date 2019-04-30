@@ -166,11 +166,11 @@
 <script type=text/javascript>
   $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
   $(function() {
-      $('.statubtn').bind('click', function() {
-          console.log("Entered");
+      $('.statubtn').click(function() {
+          alert(""+$SCRIPT_ROOT);
           $.getJSON($SCRIPT_ROOT + '/updatestatus', {
-              uid : $('.statubtn').val().split("__")[0],
-              status : $('.statubtn').val().split("__")[1],
+              uid : this.val().split("__")[0],
+              status : this.val().split("__")[1],
           }, function(data) {
               console.log("Reloading");
               location.reload(true);
@@ -184,12 +184,12 @@
 <header class="h">RED HAT - AA Hack War 6</header>
 <div style="background: white" id="id01" class="modal">
       <section>
+          <br><br>
         <div><a href="/users/all" >All users</a></div>
         <div><a href="/users/done" >Users registered</a></div>
         <div><a href="/users/notdone" >Users not registered</a></div>
       </section>
 </div>
-<br>
 <br>
 <section>
 {% if users %}
