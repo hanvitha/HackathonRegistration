@@ -48,7 +48,7 @@ def users():
     return render_template("users.html")
 
 
-@app.route("/users/<status>", strict_slashes=False, methods=["GET", "POST"])
+@app.route("/users/<status>", strict_slashes=False, methods=["GET"])
 def usersall(status=None):
     try:
         db = mysql.connector.connect(host=host,
