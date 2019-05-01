@@ -220,7 +220,7 @@
         alert($val);
           $.ajax({
               type: 'GET',
-              url: '{{ url_for('/updatestatus') }}',
+              url: '{{ url_for('updatestatus') }}',
               uid: $val.split("__")[0],
               status: $val.split("__")[1],
               success: function (data) {
