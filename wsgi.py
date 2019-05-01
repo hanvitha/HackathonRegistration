@@ -11,8 +11,8 @@ __author__ = 'hanvitha'
 app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 * 1024
 # APP_ROOT = "/opt/app-root/src/aahack"
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
-# host="mysql.registration.svc.cluster.local"
-host="mysql.registration.svc"
+# host="mysql.registration.svc"
+host="mysql.registration.svc.cluster.local"
 user="root"
 password="reg_user"
 database="reg_db"
@@ -76,25 +76,31 @@ def usersall(status=None):
 
 @app.route("/updatestatus", methods=["GET"])
 def updatestatus():
-    db = mysql.connector.connect(host=host,
-                                 user=user,
-                                 password=password,
-                                 database=database
-                                 )
-    cursor = db.cursor(buffered=True)
-    uid = request.args.get('uid')
-    status = request.args.get('status')
-    print("checking on status")
-    if(status=="0"):
-        status="1"
-    else:
-        status="0"
-    cursor.execute('''update users set status=%s where uid=%s''', (status,uid))
-    cursor.commit()
-    cursor.close()
-    db.close()
-    print("Done updating status")
-    return "success"
+    try:
+        db = mysql.connector.connect(host=host,
+                                     user=user,
+                                     password=password,
+                                     database=database
+                                     )
+        cursor = db.cursor(buffered=True)
+        uid = request.args.get('uid')
+        status = request.args.get('status')
+        print("checking on status")
+        if (status == "0"):
+            status = "1"
+        else:
+            status = "0"
+        cursor.execute('''update users set status=%s where uid=%s''', (status, uid))
+        cursor.commit()
+        print("Done updating status")
+        return "success"
+    except Exception as e:
+        print(traceback.print_exc())
+    finally:
+        cursor.close()
+        db.close()
+        return "success"
+
 
 if __name__ == '__main__':
     app.run()
