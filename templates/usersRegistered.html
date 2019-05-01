@@ -225,7 +225,7 @@
               status: $val.split("__")[1],
               success: function (data) {
                   console.log('success', data);
-                  window.location.reload();
+                  window.location='{{ url_for('users/all') }}'
               },
               error: function (exception) {
                   alert('Exception:' + exception);

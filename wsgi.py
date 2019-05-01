@@ -74,7 +74,7 @@ def usersall(status=None):
         db.close()
         cursor.close()
 
-@app.route("/updatestatus", methods=["POST"])
+@app.route("/updatestatus", methods=["GET"])
 def updatestatus():
     db = mysql.connector.connect(host=host,
                                  user=user,
