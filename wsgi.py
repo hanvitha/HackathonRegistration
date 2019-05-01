@@ -91,7 +91,7 @@ def updatestatus():
         else:
             status = "0"
         cursor.execute('''update users set status=%s where uid=%s''', (status, uid))
-        cursor.commit()
+        db.commit()
         print("Done updating status")
         return "success"
     except Exception as e:
