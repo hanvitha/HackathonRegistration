@@ -86,11 +86,15 @@ def updatestatus():
         uid = request.args.get('uid')
         status = request.args.get('status')
         print("checking on status")
-        if (status == "0"):
-            status = "1"
-        else:
+        if (status == "1"):
             status = "0"
-        cursor.execute('''update users set status=%s where uid=%s''', (status, uid))
+        else:
+            status = "1"
+
+        sqlquery='''update users set status=%s where uid=%s'''
+        print(sqlquery)
+        print(uid,status)
+        cursor.execute(sqlquery, (status, uid))
         db.commit()
         print("Done updating status")
         return "success"
