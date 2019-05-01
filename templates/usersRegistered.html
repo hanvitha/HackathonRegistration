@@ -217,6 +217,7 @@
 <script type=text/javascript>
     $(document).on('click', '.statusbtn', function() {
         var vals = $(this).val().split("__");
+        alert(vals[0]);
           $.ajax({
               type: 'GET',
               url: '{{ url_for('updatestatus') }}',
@@ -224,7 +225,7 @@
               status: vals[1],
               success: function (data) {
                   console.log('success', data);
-                  {#window.location='{{ url_for('usersall', status='all') }}'#}
+                  window.location='{{ url_for('usersall', status='all') }}'
               },
               error: function (exception) {
                   alert('Exception:' + exception);

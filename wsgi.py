@@ -12,7 +12,7 @@ app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 * 1024
 # APP_ROOT = "/opt/app-root/src/aahack"
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 # host="mysql.registration.svc"
-host="mysql.registration.svc.cluster.local"
+host="mysql.registration.svc"
 user="root"
 password="reg_user"
 database="reg_db"
@@ -83,7 +83,9 @@ def updatestatus():
                                      database=database
                                      )
         cursor = db.cursor(buffered=True)
+        print(db)
         uid = request.args.get('uid')
+        print("UID is: ",uid)
         status = request.args.get('status')
         print("checking on status")
         if (status == "1"):
@@ -93,7 +95,7 @@ def updatestatus():
 
         sqlquery='''update users set status=%s where uid=%s'''
         print(sqlquery)
-        print(uid,status)
+        print(""+uid+status)
         cursor.execute(sqlquery, (status, uid))
         db.commit()
         print("Done updating status")
