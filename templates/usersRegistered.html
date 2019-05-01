@@ -221,8 +221,7 @@
           $.ajax({
               type: 'GET',
               url: '{{ url_for('updatestatus') }}',
-              uid: vals[0],
-              status: vals[1],
+              data :{ uid: vals[0],  status: vals[1]},
               success: function (data) {
                   console.log('success', data);
                   window.location='{{ url_for('usersall', status='all') }}'
