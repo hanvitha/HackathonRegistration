@@ -216,12 +216,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script type=text/javascript>
     $(document).on('click', '.statusbtn', function() {
-        $val = $(this).val();
+        var vals = $(this).val().split("__");
           $.ajax({
               type: 'GET',
               url: '{{ url_for('updatestatus') }}',
-              uid: $val.split("__")[0],
-              status: $val.split("__")[1],
+              uid: vals[0],
+              status: vals[1],
               success: function (data) {
                   console.log('success', data);
                   {#window.location='{{ url_for('usersall', status='all') }}'#}
