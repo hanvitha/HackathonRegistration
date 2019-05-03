@@ -25,7 +25,6 @@ def home():
 def save():
     try:
         print("User %s logged in!" % request.form['fname'])
-        print("RHID " % request.form['redhatid'])
         db = mysql.connector.connect(host=host,
                                      user=user,
                                      password=password,
@@ -33,6 +32,7 @@ def save():
                                      )
         cursor = db.cursor(buffered=True)
         util = Util()
+
         status, uid = util.saveUser(db, cursor, request)
         if status and status == 200:
             return render_template("thankyou.html", fname=request.form['fname'], uid=uid)
