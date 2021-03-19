@@ -1,5 +1,5 @@
 
-This is an app created to register attendees during an event. 
+This is python flask app created to register attendees during an event. This is made to run on Openshift cluster.
 Once registered, we had the users details. With that, Openshift cluster admin can go in and give them cluster access/register them in console. 
 
 Mysql table schema:
@@ -29,6 +29,10 @@ Users registered ->usersregistered.hmtl
 
 /users/<status>
 To see users who are given cluster access.status = 1 registered, status 0 still need to be added to cluster
+
+Once you configured your mysql db on openshift -> go to self service service from developer view -> copy the git code base -> paste it in the app repo area. everything else default / your preferences and click create. you will be able to see the app up and running in minutes.
+
+
 
 
 
